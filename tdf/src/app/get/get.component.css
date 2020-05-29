@@ -1,0 +1,28 @@
+#players {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #players td, #players th {
+    border: 1px solid black;
+  }
+  
+  #players tr:nth-child(even){
+    background-color: lightgrey
+  }
+
+  #players tr:hover {
+    background-color: lightblue;
+  }
+  
+  #players th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+  }
+
+  #title th{
+    background-color: rgb(37, 88, 255);
+    color: white;
+  }

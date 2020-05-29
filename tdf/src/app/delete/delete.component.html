@@ -1,0 +1,8 @@
+<div class="container-fluid">
+    <h1>Delete Player</h1>
+    <div class="form-group">
+        <label>Player id</label>
+        <input type="number" required pattern="^[0-9]?$" class="form-control" name="id" [(ngModel)]="id">
+    </div>
+    <button  class="btn btn-primary" type="submit" (click)="Submit()">Delete Player</button>
+</div>

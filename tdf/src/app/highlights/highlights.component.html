@@ -1,0 +1,20 @@
+<div id="c">
+    <div id="a">
+        <iframe src="https://www.scorebat.com/ararat-vs-urartu-live-stream/"></iframe>
+    </div>
+    <div id="b">
+        <table id="players">
+            <tr id="title">
+              <th>Teams</th>
+              <th>Date</th>
+              <th>Stats</th>
+            </tr>
+              <tr *ngFor="let vid of vids">
+                <th>{{vid.title}}</th>
+                <th>{{vid.date | date :'short'}}</th>
+                <th><button (click)="GetStats(vid.url)">Load Stats</button></th>
+            </tr>
+        </table>
+    </div>
+</div>
+

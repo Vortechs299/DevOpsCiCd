@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <h1>Post Player</h1>
+    <form #playerForm="ngForm" novalidate>
+  
+      <!--{{playerModel | json}}-->
+      <div class="form-group">
+        <label>Update player with id</label>
+        <input type="number" pattern="^[0-9]?$" class="form-control" name="id" [(ngModel)]="id">
+      </div>
+  
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" required #lastname="ngModel" pattern="^[A-Za-z_ ]{1,20}$" [class.is-invalid]="lastname.invalid && lastname.touched" class="form-control" name="lastname" [(ngModel)]="playerModel.lastname">
+        <div *ngIf="lastname.errors && (lastname.invalid || lastname.touched)">
+          <small class="text-danger" *ngIf="lastname.errors.required">Last Name is required</small>
+          <small class="text-danger" *ngIf="lastname.errors.pattern">Last Name must exits out of letters</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text"  required #firstname="ngModel" pattern="^[A-Za-z_ ]{1,20}$" [class.is-invalid]="firstname.invalid && firstname.touched" class="form-control" name="firstname" [(ngModel)]="playerModel.firstname">
+        <div *ngIf="firstname.errors && (firstname.invalid || firstname.touched)">
+          <small class="text-danger" *ngIf="firstname.errors.required">First Name is required</small>
+          <small class="text-danger" *ngIf="firstname.errors.pattern">First Name must exits out of letters</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>birthDate</label>
+        <input type="date" required #birthdate="ngModel" class="form-control" name="birthdate" [(ngModel)]="playerModel.birthDate">
+      </div>                        <!--submit error when birthdate.untouched == true-->
+  
+      <div class="form-group">
+        <label>shirtNumber</label>
+        <input type="number" required #shirtNumber="ngModel" pattern="^[1-9][0-9]?$|^99$" [class.is-invalid]="shirtNumber.invalid && shirtNumber.touched" class="form-control" name="shirtNumber" [(ngModel)]="playerModel.shirtNumber">
+        <div *ngIf="shirtNumber.errors && (shirtNumber.invalid || shirtNumber.touched)">
+          <small class="text-danger" *ngIf="shirtNumber.errors.required">Shirtnumber is required</small>
+          <small class="text-danger" *ngIf="shirtNumber.errors.pattern">Shirtnumber must be a number from 1 to 99</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <select required #position="ngModel" [class.is-invalid]="position.invalid && position.touched" class="custom-select" name="position" [(ngModel)]="playerModel.position">
+          <option value="">--Position--</option>
+          <option *ngFor="let pos of Positions">{{pos}}</option>
+        </select>
+        <div *ngIf="position.errors && (position.invalid || position.touched)">
+          <small class="text-danger" *ngIf="position.errors.required">Please choose a Position</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Team</label>
+        <input type="text" #team="ngModel" pattern="^[A-Za-z_ ]{1,30}$" [class.is-invalid]="team.invalid && team.touched" class="form-control" name="team" [(ngModel)]="playerModel.team">
+        <div *ngIf="team.errors && (team.invalid || team.touched)">
+          <small class="text-danger" *ngIf="team.errors.required">Team is required</small>
+          <small class="text-danger" *ngIf="team.errors.pattern">Team can only be letters and spaces</small>
+        </div>
+      </div>
+  
+      <button  class="btn btn-primary" type="submit" (click)="Submit()">Submit player to API</button>
+    </form>
+  </div>
