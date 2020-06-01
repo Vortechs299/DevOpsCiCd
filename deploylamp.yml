@@ -1,0 +1,54 @@
+---
+- name: Deploying LAMP Stack
+  hosts: node2
+  remote_user: ansibu1
+  become: yes
+
+  tasks:
+  - name: Installing Apache server
+    yum: name=httpd state=latest
+
+  - name: Start Apache Server service
+    service: name=httpd state=started
+
+  - name: Installing MariaDB Server
+    yum:
+     name:
+     - mariadb-server
+     - mariadb-devel
+     - mariadb-connectot-odbc
+     - mariadb-server-utilis
+     - python3-PyMySQL
+     - php
+     state: latest
+
+  - name: Start MariaDB Server Service
+    service: name=mariadb state=started
+
+  - name: Update MariaDB Server root password
+    mysql_user:
+      name: root
+      host: node3
+      password: mysql
+      login_user: root
+      check_implicit_admin: yes
+      priv: "*.*:ALL,GRANT"
+
+    - name: Create a new database called Inventory
+      mysql_db: name=inventory state=present login_user=root login_password=mysql
+    
+    - name: Copy SQL file
+      copy: src=/source/servers.sql dest=/tmp/servers.sql
+   
+    - name: Create Table called servers with data
+      shell: mysql -u root -pmysql inventory < /tmp/servers.sql
+
+    - name: Copy PHP files
+      copy: src=/source/connection.php dest=/var/www/html/
+
+    - name: copy Index.php file
+      copy: src=/source/index.php dest=/var/www/html/
+
+    - name: Restart web service
+      service: name=httpd state=restarted
+...    
